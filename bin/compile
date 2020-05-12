@@ -42,7 +42,7 @@ CURL_USER_AGENT="Heroku Buildpack D $(curl --version | head -n 1)"
 curl() { command curl -fsSL --retry 3 -A "${CURL_USER_AGENT}" "$@"; }
 
 activate_path="$(curl -fsS https://dlang.org/install.sh | SHELL=bash bash -s "$DC" --path "$CACHE_DIR" --activate)"
-set +u
+set +u  
 # shellcheck source=/dev/null
 source "$activate_path"
 set -u
