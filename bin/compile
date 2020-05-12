@@ -6,10 +6,15 @@ set -ueo pipefail
 BUILD_DIR="$1"
 CACHE_DIR="$2"
 ENV_DIR="$3"
+SUB_DIR=""
 
 DC=dmd
 if [ -f "$BUILD_DIR/.d-compiler" ]; then
     DC=$(cat "$BUILD_DIR/.d-compiler")
+fi
+
+if [ -f "$BUILD_DIR/.buildpack-configuration" ]; then
+    source "$BUILD_DIR/.buildpack-configuration"
 fi
 
 # https://devcenter.heroku.com/articles/buildpack-api#bin-compile
@@ -63,7 +68,7 @@ fi
 echo '-----> Using ld'
 ${LD:-ld} -v | indent
 
-cd "$BUILD_DIR"
+cd "$BUILD_DIR$SUB_DIR"
 echo "-----> Building application with dub"
 
 dub build -b release --compiler="$DC" 2>&1 | indent
