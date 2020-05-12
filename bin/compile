@@ -15,6 +15,7 @@ fi
 
 if [ -f "$BUILD_DIR/.buildpack-configuration" ]; then
     source "$BUILD_DIR/.buildpack-configuration"
+    echo "Building package in $BUILD_DIR$SUB_DIR"
 fi
 
 # https://devcenter.heroku.com/articles/buildpack-api#bin-compile
